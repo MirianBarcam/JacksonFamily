@@ -1,5 +1,6 @@
 from flask import jsonify, url_for
 
+
 class APIException(Exception):
     status_code = 400
 
@@ -15,10 +16,12 @@ class APIException(Exception):
         rv['message'] = self.message
         return rv
 
+
 def has_no_empty_params(rule):
     defaults = rule.defaults if rule.defaults is not None else ()
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(defaults) >= len(arguments)
+
 
 def generate_sitemap(app):
     links = []
@@ -29,7 +32,8 @@ def generate_sitemap(app):
             url = url_for(rule.endpoint, **(rule.defaults or {}))
             links.append(url)
 
-    links_html = "".join(["<li><a href='" + y + "'>" + y + "</a></li>" for y in links])
+    links_html = "".join(["<li><a href='" + y + "'>" +
+                         y + "</a></li>" for y in links])
     return """
         <div style="text-align: center;">
         <img src='https://ucarecdn.com/3a0e7d8b-25f3-4e2f-add2-016064b04075/rigobaby.jpg' />
